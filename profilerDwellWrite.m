@@ -3,8 +3,8 @@ function profilerDwellWrite
 
 clc
 close all
-varN   = 'wtr';
-year  = '2011';
+varN   = 'dosat';
+year  = '2012';
 
 fileInput = 'CrystalLake_SondeTable.dat';
 if strcmp(year,'2011')
