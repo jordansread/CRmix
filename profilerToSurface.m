@@ -42,7 +42,7 @@ gap = timeO(2:end)-timeO(1:end-1);
 idx = 1:length(timeO);
 jumpI = gt(gap,mxGap);
 jumpI = [false; jumpI];
-jumpIx= unique(sort([idx(jumpI); idx(jumpI)+1; idx(jumpI)+2]));
+jumpIx= unique(sort([idx(jumpI); idx(jumpI)+1; idx(jumpI)+2; idx(jumpI)+3]));
 
 varO(jumpIx) = [];
 timeO(jumpIx) = [];
