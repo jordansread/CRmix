@@ -3,13 +3,13 @@ function profilerPivotWrite
 clc
 close all
 fileInput = '2011\2011CrystalLake_SondeTable.dat';
-varN   = 'dosat';
+varN   = 'wtr';
 fileOut   = ['Data/Crystal_2011.' varN];
 
 rootFolder = [getenv('USERPROFILE') '\Desktop\CRmix\Data\'];
 delim  = ',';
 sonVar = '%s %f %f %f %f %f %f %f %f';
-varI = 8;
+varI = 4;
 zI   = 3;
 zInt = 1;
 tInt = 1/24;    % day frac
@@ -30,6 +30,7 @@ if strcmp(data{1}(end),'')
 end
 datesC = regexprep(data{1}, '"', '');
 dates = datenum(datesC,'yyyy-mm-dd HH:MM');
+
 [timeO,depthO,varO] = profilerTo2D(dates,data{zI},data{varI},zInt,zOff,tInt);
 
 var = data{varI};
