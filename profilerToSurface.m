@@ -1,4 +1,4 @@
-function [timeO,varO] = profilerToSurface(time,depth,var,zInt,zOff)
+function [timeO,varO] = profilerToSurface(time,depth,var,zInt,zOff,numRmv)
 
 % converts 1D profiler data into 2D matrix of data
 
@@ -12,7 +12,9 @@ function [timeO,varO] = profilerToSurface(time,depth,var,zInt,zOff)
 mxGap = 1/12;
 mxDat = 200;
 mnDat = 0.01;
-numRmv = 12;    % values to remove after rise
+if eq(nargin,5)
+    numRmv = 12;    % values to remove after rise
+end
 %% convert data:
 depth = depth+zOff;             % now set near actual reading
 depth = round(depth*zInt)*zInt; % now rounded to values
