@@ -3,15 +3,27 @@ function profilerDwellWrite
 
 clc
 close all
-fileInput = '2011\2011CrystalLake_SondeTable.dat';
-varN   = 'doobs';
-numRmv = 16;
-fileOut   = ['Data/Crystal_1m_2011.' varN];
+varN   = 'wtr';
+year  = '2011';
+
+fileInput = 'CrystalLake_SondeTable.dat';
+if strcmp(year,'2011')
+    fileInput = ['2011\2011' fileInput];
+end
+wtr = struct('varI',4,'rmv',3);
+chla = struct('varI',6,'rmv',2);
+doobs = struct('varI',7,'rmv',16);
+dosat = struct('varI',8,'rmv',16);
+
+varStruct = struct('wtr',wtr,'chla',chla,'doobs',doobs,'dosat',dosat);
+
+numRmv = varStruct.(varN).rmv;
+fileOut   = ['Data/Crystal_1m_' year '.' varN];
 
 rootFolder = [getenv('USERPROFILE') '\Desktop\CRmix\Data\'];
 delim  = ',';
 sonVar = '%s %f %f %f %f %f %f %f %f';
-varI = 7;
+varI = varStruct.(varN).varI;
 zI   = 3;
 zInt = 1;
 zOff = 0.5;
