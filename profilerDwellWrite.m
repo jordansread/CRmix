@@ -4,13 +4,13 @@ function profilerDwellWrite
 clc
 close all
 fileInput = '2011\2011CrystalLake_SondeTable.dat';
-varN   = 'wtr';
+varN   = 'doobs';
 fileOut   = ['Data/Crystal_1m_2011.' varN];
 
 rootFolder = [getenv('USERPROFILE') '\Desktop\CRmix\Data\'];
 delim  = ',';
 sonVar = '%s %f %f %f %f %f %f %f %f';
-varI = 4;
+varI = 7;
 zI   = 3;
 zInt = 1;
 tInt = 1/24;    % day frac
