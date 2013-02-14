@@ -5,7 +5,7 @@ clc
 close all
 fileInput = '2011\2011CrystalLake_SondeTable.dat';
 varN   = 'wtr';
-fileOut   = ['Data/Crystal_2011.' varN];
+fileOut   = ['Data/Crystal_1m_2011.' varN];
 
 rootFolder = [getenv('USERPROFILE') '\Desktop\CRmix\Data\'];
 delim  = ',';
@@ -32,7 +32,10 @@ end
 datesC = regexprep(data{1}, '"', '');
 dates = datenum(datesC,'yyyy-mm-dd HH:MM');
 
-[timeO,depthO,varO] = profilerToSurface(dates,data{zI},data{varI},zInt,zOff,tInt);
+[timeO,varO] = profilerToSurface(dates,data{zI},data{varI},zInt,zOff);
+
+plot(timeO,varO); pause(1)
+gFileSave(fileOut,timeO, varO, varN, 1,'overwrite')
 
 end
 
