@@ -12,7 +12,7 @@ function [timeO,varO] = profilerToSurface(time,depth,var,zInt,zOff)
 mxGap = 1/12;
 mxDat = 200;
 mnDat = 0.01;
-numRmv = 10;    % values to remove after rise
+numRmv = 12;    % values to remove after rise
 %% convert data:
 depth = depth+zOff;             % now set near actual reading
 depth = round(depth*zInt)*zInt; % now rounded to values
@@ -40,7 +40,6 @@ timeO = time(useI);
 varO = var(useI);
 
 gap = timeO(2:end)-timeO(1:end-1);
-idx = 1:length(timeO);
 jumpI = gt(gap,mxGap);
 jumpI = [false; jumpI];
 
@@ -50,8 +49,7 @@ for j = numRmv+1:length(timeO);
         rmvI(j) = true;
     end
 end
-jumpIx= unique(sort([idx(jumpI); idx(jumpI)+1; idx(jumpI)+2; idx(jumpI)+3]));
 
-varO(jumpIx) = [];
-timeO(jumpIx) = [];
+varO(rmvI) = [];
+timeO(rmvI) = [];
 
