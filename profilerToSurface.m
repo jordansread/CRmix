@@ -20,7 +20,7 @@ depth = round(depth*zInt)*zInt; % now rounded to values
 % should be increasing or staying the same, except to start new dwell at 0
 
 % --remove errant data--
-rmvI = gt(var,mxDat);
+rmvI = gt(var,mxDat) | isnan(var);
 time = time(~rmvI);
 depth= depth(~rmvI);
 var  = var(~rmvI);
