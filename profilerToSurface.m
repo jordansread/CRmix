@@ -9,7 +9,9 @@ function [timeO,varO] = profilerToSurface(time,depth,var,zInt,zOff)
 % zOff:     scalar offset of depth interval (z = z_meas+zOff)
 % tInt:     scalar (day frac) of binning for output
 
+mxGap = 1/12;
 mxDat = 200;
+mnDat = 0.01;
 %% convert data:
 depth = depth+zOff;             % now set near actual reading
 depth = round(depth*zInt)*zInt; % now rounded to values
@@ -19,7 +21,7 @@ depth = round(depth*zInt)*zInt; % now rounded to values
 % should be increasing or staying the same, except to start new dwell at 0
 
 % --remove errant data--
-rmvI = gt(var,mxDat) | isnan(var) | isnan(depth);
+rmvI = gt(var,mxDat) | isnan(var) | isnan(depth) | lt(var,mnDat);
 time = time(~rmvI);
 depth= depth(~rmvI);
 var  = var(~rmvI);
@@ -36,5 +38,12 @@ useI = eq(depth,1);
 timeO = time(useI);
 varO = var(useI);
 
-gap = timeO(2:end)-timeO(1:end-1)
+gap = timeO(2:end)-timeO(1:end-1);
+idx = 1:length(timeO);
+jumpI = gt(gap,mxGap);
+jumpI = [false; jumpI];
+jumpIx= unique(sort([idx(jumpI); idx(jumpI)+1; idx(jumpI)+2]));
+
+varO(jumpIx) = [];
+timeO(jumpIx) = [];
 
