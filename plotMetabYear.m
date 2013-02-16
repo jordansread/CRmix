@@ -3,7 +3,7 @@ function plotMetabYear(year)
 close all
 
 if eq(nargin,0)
-    year = '2011';
+    year = '2012';
 end
 
 fontN = 'Times New Roman';
@@ -71,6 +71,8 @@ pause(.5)
 plot(time,NEP,'ko','LineWidth',2.5,'Color',[.5 0 0],...
     'MarkerSize',9,'MarkerFaceColor','w','Parent',ax_top);
 
+lg = legend(ax_top,['Crystal ' year],'Location','NorthWest');
+set(lg,'Box','off')
 plot(xL,[0 0],'k-','LineWidth',.75,'Parent',ax_top);
 print(['metabolism_' year],'-dpng','-r300')
 pause(1.5);
