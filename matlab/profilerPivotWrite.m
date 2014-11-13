@@ -1,15 +1,13 @@
-function profilerPivotWrite
+function profilerPivotWrite(varN, varI, year)
 
 clc
 close all
-fileInput = '../data/2014_CR_sonde_corrected_V1.3.dat';
-varN   = 'wtr';
-fileOut   = ['../data/Crystal_2014.' varN];
+fileInput = ['../data/',num2str(year),'_CR_sonde_corrected_V1.3.dat'];
+fileOut   = ['../data/Crystal_',num2str(year),'.' varN];
 
 rootFolder = '../data/';
 delim  = ',';
 sonVar = '%s %f %f %f %f %f %f %f %f %f %f %f %f';
-varI = 4;
 zI   = 10;
 zInt = 1; % interval of depth resolution
 tInt = 1/24;    % day frac
