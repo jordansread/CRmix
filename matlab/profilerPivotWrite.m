@@ -30,8 +30,8 @@ if strcmp(data{1}(end),'')
 end
 datesC = regexprep(data{1}, '"', '');
 dates = datenum(datesC,'yyyy-mm-dd HH:MM');
-
-[timeO,depthO,varO] = profilerTo2D(dates,data{zI},data{varI},zInt,zOff,tInt);
+depth_flag = ~(logical(data{13}));
+[timeO,depthO,varO] = profilerTo2D(dates,data{zI}(depth_flag),data{varI}(depth_flag),zInt,zOff,tInt);
 
 var = data{varI};
 dep = data{zI};
@@ -41,6 +41,8 @@ plot(timeO,varO);
 datetick;
 hold on;
 plot(dates(useI),var(useI),'c.')
-gFileSave(fileOut,timeO, varO, varN, depthO,'overwrite')
+
+u_i = ge(depthO,1) & le(depthO,18);
+gFileSave(fileOut,timeO, varO(:,u_i), varN, depthO(u_i),'overwrite')
 end
 
