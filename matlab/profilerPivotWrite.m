@@ -2,16 +2,16 @@ function profilerPivotWrite
 
 clc
 close all
-fileInput = '2011\2011CrystalLake_SondeTable.dat';
+fileInput = '../data/2014_CR_sonde_corrected_V1.3.dat';
 varN   = 'wtr';
-fileOut   = ['Data/Crystal_2011.' varN];
+fileOut   = ['../data/Crystal_2014.' varN];
 
-rootFolder = [getenv('USERPROFILE') '\Desktop\CRmix\Data\'];
+rootFolder = '../data/';
 delim  = ',';
-sonVar = '%s %f %f %f %f %f %f %f %f';
+sonVar = '%s %f %f %f %f %f %f %f %f %f %f %f %f';
 varI = 4;
-zI   = 3;
-zInt = 1;
+zI   = 10;
+zInt = 1; % interval of depth resolution
 tInt = 1/24;    % day frac
 zOff = 0;
 
@@ -19,11 +19,11 @@ zOff = 0;
 
 fID = fopen([rootFolder fileInput]);
 heads= textscan(fID,'%s',(length(sonVar)+1)/3,...
-    'HeaderLines',1,'Delimiter',delim);
+    'HeaderLines',6,'Delimiter',delim);
 
 heads{1} = regexprep(heads{1}, '"', '');
 disp(['pivoting and writing ' heads{1}{varI} ' to ' fileOut]);
-data = textscan(fID,sonVar,'HeaderLines',4,...
+data = textscan(fID,sonVar,'HeaderLines',7,...
     'Delimiter',delim,'treatAsEmpty','"NAN"');
 if strcmp(data{1}(end),'')
     data{1} = data{1}(1:end-1);
