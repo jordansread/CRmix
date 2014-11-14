@@ -22,14 +22,12 @@ plot(r_dt,rep(NA,length(r_dt)), ylim = c(-80,40),'ylab'='metab')
 use.dates <- unique(r_dt)
 for (i in 1:length(use.dates)){
   u_i <- r_dt %in% use.dates[i] & !is.na(z.mix)
-  mtb <- metab.mle(do.obs[u_i], do.sat[u_i], k.gas[u_i], z.mix[u_i], irr[u_i], wtr[u_i], datetime = datetime[u_i])
-  if (i == 1){
-    metab <- mtb
-  } else {
-    metab <- rbind(metab,mtb)
+  if (any(u_i)){
+    mtb <- metab.kalman(do.obs[u_i], do.sat[u_i], k.gas[u_i], z.mix[u_i], irr[u_i], wtr[u_i], datetime = datetime[u_i])
+    points(use.dates[i],mtb$metab[[1]], pch=4,col = 'green')
+    points(use.dates[i],mtb$metab[[2]], pch=8,col = 'red')
+    points(use.dates[i],mtb$metab[[3]], pch=8,col = 'blue')
   }
-  points(use.dates[i],mtb$metab[[1]], pch=4,col = 'green')
-  points(use.dates[i],mtb$metab[[2]], pch=8,col = 'red')
-  points(use.dates[i],mtb$metab[[3]], pch=8,col = 'blue')
+
 }
 
